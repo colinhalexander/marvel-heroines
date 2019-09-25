@@ -10,7 +10,8 @@ class Heroine < ApplicationRecord
         id: self.id,
         name: self.name,
         super_name: self.super_name,
-        power: self.power.name
+        power_id: self.power_id,
+        power_name: self.power.name
     }
   end
 end
