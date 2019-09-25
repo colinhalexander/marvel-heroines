@@ -1,8 +1,14 @@
 window.addEventListener('DOMContentLoaded', event => {
-    fetch("http://localhost:3000/powers")
+    const id = getQueryParams();
+    if (!id) {
+        fetch("http://localhost:3000/powers")
+            .then(response => response.json())
+            .then(powers => makePowersList(powers))
+    } else {
+        fetch(`http://localhost:3000/powers/${id}`)
         .then(response => response.json())
-        .then(powers => makePowersList(powers))
-
+        .then(power => displayPowerInfo(power))
+    }
 });
 
 function makePowersList(powers) {
@@ -28,13 +34,7 @@ function makePower(power) {
     return $li;
 }
 
-function displayPowerInfo(id) {
-    fetch(`http://localhost:3000/powers/${id}`)
-        .then(response => response.json())
-        .then(power => makeCard(power))
-}
-
-function makeCard(power) {
+function displayPowerInfo(power) {
     $body = document.querySelector('body');
 
     $div = document.createElement('div');
